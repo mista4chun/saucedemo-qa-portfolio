@@ -1,0 +1,15 @@
+Bug Report - Swag Labs (SauceDemo),,,,,,,,,,,,,,
+"Yellow cells = fill in before publishing (date, environment, GitHub issue link).",,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+Bug ID,Title,Test Case,Date Reported,Reported By,Environment,Preconditions,Steps to Reproduce,Expected Result,Actual Result,Severity,Priority,Status,GitHub Issue,Evidence
+BUG-001,Checkout is allowed with an empty cart,TC_SwagLabs_026 (FR-4.6),28/10/2026,Hilary,"Chrome 154.0.8037.57 (x86_64)
+Ubuntu 24.04 LTS",User is logged in as standard_user; the cart is empty (no badge on the cart icon),"1. Open https://www.saucedemo.com and log in as standard_user
+2. Confirm the cart is empty
+3. Click the cart icon
+4. Click 'Checkout'
+5. Note which page opens","Checkout is blocked, or the user is warned that the cart is empty.","The checkout form opens (/checkout-step-one.html, 'Checkout: Your Information') even though the cart is empty.",Medium,Medium,Open,https://github.com/mista4chun/saucedemo-qa-portfolio/issues/1,Evidence sheet: BUG-001
+BUG-002,Product buttons still show 'Remove' after Reset App State until the page is refreshed,TC_SwagLabs_047 (FR-7.2),28/10/2026,Hilary,"Chrome 154.0.8037.57 (x86_64)
+Ubuntu 24.04 LTS",User is logged in as standard_user; 2 items have been added to the cart,"1. Click the menu icon
+2. Click 'Reset App State'
+3. Without refreshing, look at the buttons on the product cards
+4. Press F5 and look at the buttons again",The buttons for the items that were in the cart return to 'Add to cart'.,"The cart badge clears, but the buttons still read 'Remove'. They return to 'Add to cart' only after a normal page refresh (F5).",Low,Low,Open,https://github.com/mista4chun/saucedemo-qa-portfolio/issues/2,Evidence sheet: BUG-002
