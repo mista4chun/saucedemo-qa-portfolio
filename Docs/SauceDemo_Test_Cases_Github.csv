@@ -1,28 +1,140 @@
-Req ID,Module,Requirement,Linked Cases
-FR-1.1,Login,A user with valid credentials can log in and is taken to the products page.,1
-FR-1.2,Login,Login is rejected with an error message when the username or password is incorrect.,4
-FR-1.3,Login,Username and password are both required; an error is shown if either is empty.,3
-FR-1.4,Login,A locked-out user cannot log in and sees a lock-out message.,1
-FR-1.5,Login,Protected pages cannot be opened without being logged in.,1
-FR-2.1,Products,"The products page displays all products with image, name, description, price and an Add to cart button.",1
-FR-2.2,Product details,Clicking a product's image or title opens its details page.,2
-FR-2.3,Product details,The user can return to the products page from the details page.,1
-FR-3.1,Cart,The user can add an item to the cart from the products page.,1
-FR-3.2,Cart,The user can remove an item from the cart on the products page.,1
-FR-3.3,Cart,The user can add an item to the cart from the details page.,1
-FR-3.4,Cart,The user can remove an item from the cart on the details page.,1
-FR-3.5,Cart,Cart contents persist when the page is refreshed.,1
-FR-4.1,Cart page,"The cart icon shows a badge with the number of items, updating as items are added or removed.",2
-FR-4.2,Cart page,Clicking the cart icon opens the cart page listing the items in the cart.,1
-FR-4.3,Cart page,The user can return to the products page from the cart with 'Continue Shopping'.,1
-FR-4.4,Cart page,The user can remove items from the cart page.,1
-FR-4.5,Cart page,The user can start checkout from the cart page.,1
-FR-4.6,Cart page,Checkout is not allowed when the cart is empty.,1
-FR-5.1,Checkout,"First name, last name and postal code are required before the user can continue.",7
-FR-5.2,Checkout,"The overview page shows the item total, tax and order total.",2
-FR-5.3,Checkout,Clicking Finish completes the order and shows a confirmation.,1
-FR-5.4,Checkout,The user can cancel checkout without losing the cart.,2
-FR-5.5,Checkout,"After an order, the user can return to the products page.",1
-FR-6.1,Products,"Products can be sorted by name (A-Z, Z-A) and by price (low-high, high-low).",4
-FR-7.1,Menu,"The user can log out, which ends the session.",2
-FR-7.2,Menu,"The user can reset the app state, which clears the cart.",2
+TC ID,Module,Req ID,Scenario,Test Case Title,Type,Priority,Preconditions,Steps,Test Data,Expected Result,Actual Result,Status
+TC_SwagLabs_001,Login,FR-1.1,User can log in,Verify login with valid username and valid password,Positive,High,User is on the login page (https://www.saucedemo.com),"1. Open https://www.saucedemo.com in a browser
+2. Enter the username
+3. Enter the password
+4. Click Login","Username: standard_user
+Password: secret_sauce",User is redirected to /inventory.html and the Products page shows 6 items.,As expected ,Passed
+TC_SwagLabs_002,Login,FR-1.2,Invalid credentials are rejected,Verify login with valid username and invalid password,Negative,High,User is on the login page (https://www.saucedemo.com),"1. Open https://www.saucedemo.com
+2. Enter a valid username
+3. Enter an invalid password
+4. Click Login","Username: standard_user
+Password: xxxx",User stays on the login page and sees: 'Epic sadface: Username and password do not match any user in this service'. No redirect to /inventory.html.,As expected ,Passed
+TC_SwagLabs_003,Login,FR-1.2,Invalid credentials are rejected,Verify login with invalid username and valid password,Negative,High,User is on the login page (https://www.saucedemo.com),"1. Open https://www.saucedemo.com
+2. Enter an invalid username
+3. Enter a valid password
+4. Click Login","Username: xxxx
+Password: secret_sauce",Same error as above: 'Epic sadface: Username and password do not match any user in this service'.,As expected ,Passed
+TC_SwagLabs_004,Login,FR-1.2,Invalid credentials are rejected,Verify login with invalid username and invalid password,Negative,Medium,User is on the login page (https://www.saucedemo.com),"1. Open https://www.saucedemo.com
+2. Enter an invalid username
+3. Enter an invalid password
+4. Click Login","Username: xxxx
+Password: xxxx",Same error as above: 'Epic sadface: Username and password do not match any user in this service'.,As expected ,Passed
+TC_SwagLabs_005,Login,FR-1.3,Username and password are required,Verify login with empty username and valid password,Negative,High,User is on the login page (https://www.saucedemo.com),"1. Open https://www.saucedemo.com
+2. Leave the username empty
+3. Enter the password
+4. Click Login","Username: (empty)
+Password: secret_sauce",Error shown: 'Epic sadface: Username is required'. User stays on the login page.,As expected ,Passed
+TC_SwagLabs_006,Login,FR-1.3,Username and password are required,Verify login with valid username and empty password,Negative,High,User is on the login page (https://www.saucedemo.com),"1. Open https://www.saucedemo.com
+2. Enter the username
+3. Leave the password empty
+4. Click Login","Username: standard_user
+Password: (empty)",Error shown: 'Epic sadface: Password is required'. User stays on the login page.,As expected ,Passed
+TC_SwagLabs_007,Login,FR-1.3,Username and password are required,Verify login with both fields empty,Negative,Medium,User is on the login page (https://www.saucedemo.com),"1. Open https://www.saucedemo.com
+2. Leave both fields empty
+3. Click Login","Username: (empty)
+Password: (empty)",Error shown: 'Epic sadface: Username is required' (username is validated first). User stays on the login page.,As expected ,Passed
+TC_SwagLabs_008,Login,FR-1.4,Locked-out users cannot log in,Verify a locked-out user cannot log in,Negative,High,User is on the login page (https://www.saucedemo.com),"1. Open https://www.saucedemo.com
+2. Enter the locked-out username and the password
+3. Click Login","Username: locked_out_user
+Password: secret_sauce","Error shown: 'Epic sadface: Sorry, this user has been locked out.' User is not logged in.",As expected ,Passed
+TC_SwagLabs_009,Login,FR-1.5,Protected pages require login,Verify the products page cannot be opened without logging in,Negative,High,User is NOT logged in (use a fresh incognito/private window),"1. Open a new incognito window
+2. Go directly to https://www.saucedemo.com/inventory.html",N/A,"User is sent to the login page with the error: ""Epic sadface: You can only access '/inventory.html' when you are logged in.""",As expected ,Passed
+TC_SwagLabs_010,Login,FR-1.2,Invalid credentials are rejected,Verify the username is case-sensitive,Negative,Medium,User is on the login page (https://www.saucedemo.com),"1. Open https://www.saucedemo.com
+2. Enter the username in capital letters
+3. Enter the password
+4. Click Login","Username: STANDARD_USER
+Password: secret_sauce",Login is rejected with the 'do not match any user' error.,As expected ,Passed
+TC_SwagLabs_011,Products,FR-2.1,User can view all products,Verify all products are displayed on the products page,Positive,High,User is logged in as standard_user,"1. Log in with valid credentials
+2. Observe the Products page","Username: standard_user
+Password: secret_sauce","6 product cards are displayed. Each card shows an image, name, description, price and an 'Add to cart' button.",As expected ,Passed
+TC_SwagLabs_012,Product details,FR-2.2,User can open product details,Verify item details open when clicking the item image,Positive,Medium,User is logged in as standard_user,"1. On the Products page, click the image of 'Sauce Labs Backpack'",Item: Sauce Labs Backpack,"Details page opens (/inventory-item.html?id=4) showing the item's image, name, description, price, an 'Add to cart' button and a 'Back to products' button.",As expected ,Passed
+TC_SwagLabs_013,Product details,FR-2.2,User can open product details,Verify item details open when clicking the item title,Positive,Medium,User is logged in as standard_user,"1. On the Products page, click the title 'Sauce Labs Backpack'",Item: Sauce Labs Backpack,Same details page as above opens for the Backpack.,As expected ,Passed
+TC_SwagLabs_014,Product details,FR-2.3,User can return to products from details,Verify 'Back to products' returns the user to the products page,Positive,Medium,User is on the details page of any item,1. Click 'Back to products',N/A,User returns to /inventory.html and all 6 products are listed.,As expected ,Passed
+TC_SwagLabs_015,Cart,FR-3.1,Add item from products page,Verify an item can be added to the cart from the products page,Positive,High,User is logged in as standard_user; cart is empty,"1. On the Products page, click 'Add to cart' under 'Sauce Labs Backpack'",Item: Sauce Labs Backpack,The button changes to 'Remove' and the cart icon badge shows 1.,As expected ,Passed
+TC_SwagLabs_016,Cart,FR-3.2,Remove item from products page,Verify an item can be removed from the cart on the products page,Positive,High,User is logged in as standard_user; Sauce Labs Backpack already added,1. Click 'Remove' under 'Sauce Labs Backpack',Item: Sauce Labs Backpack,The button reverts to 'Add to cart' and the cart badge disappears.,As expected ,Passed
+TC_SwagLabs_017,Cart,FR-3.3,Add item from details page,Verify an item can be added to the cart from the details page,Positive,Medium,User is logged in as standard_user; cart is empty,"1. Open the details page of 'Sauce Labs Backpack'
+2. Click 'Add to cart'",Item: Sauce Labs Backpack,The button changes to 'Remove' and the cart badge shows 1.,As expected ,Passed
+TC_SwagLabs_018,Cart,FR-3.4,Remove item from details page,Verify an item can be removed from the cart on the details page,Positive,Medium,User is logged in as standard_user; Sauce Labs Backpack already added,"1. Open the details page of 'Sauce Labs Backpack'
+2. Click 'Remove'",Item: Sauce Labs Backpack,The button reverts to 'Add to cart' and the cart badge disappears.,As expected ,Passed
+TC_SwagLabs_019,Cart,FR-3.5,Cart persists on refresh,Verify cart contents survive a page refresh,Positive,Medium,User is logged in as standard_user; cart is empty,"1. Add 'Sauce Labs Backpack' to the cart
+2. Refresh the page (F5)
+3. Check the cart badge",Item: Sauce Labs Backpack,The badge still shows 1 and the item is still in the cart.,As expected ,Passed
+TC_SwagLabs_020,Cart page,FR-4.1,Cart badge shows item count,Verify the cart badge count increases as items are added,Positive,High,User is logged in as standard_user; cart is empty,"1. Add 'Sauce Labs Backpack'
+2. Add 'Sauce Labs Bike Light'
+3. Check the badge after each step","Items: Sauce Labs Backpack, Sauce Labs Bike Light",Badge shows 1 after the first item and 2 after the second.,As expected ,Passed
+TC_SwagLabs_021,Cart page,FR-4.1,Cart badge shows item count,Verify the cart badge count decreases as items are removed,Positive,Medium,User is logged in as standard_user; 2 items in the cart,"1. Remove one item
+2. Remove the other item
+3. Check the badge after each step","Items: Sauce Labs Backpack, Sauce Labs Bike Light",Badge shows 1 after the first removal and disappears after the second.,As expected ,Passed
+TC_SwagLabs_022,Cart page,FR-4.2,User can view the cart,Verify the cart page lists the items added,Positive,High,User is logged in as standard_user; Sauce Labs Backpack added,1. Click the cart icon (top right),Item: Sauce Labs Backpack,"Cart page (/cart.html) shows the Backpack with quantity 1 and price $29.99, plus 'Continue Shopping' and 'Checkout' buttons.",As expected ,Passed
+TC_SwagLabs_023,Cart page,FR-4.3,User can continue shopping from the cart,Verify 'Continue Shopping' returns the user to the products page,Positive,Medium,User is logged in as standard_user; one item in the cart,"1. Click the cart icon
+2. Click 'Continue Shopping'",N/A,User returns to /inventory.html and the cart badge is unchanged.,As expected ,Passed
+TC_SwagLabs_024,Cart page,FR-4.4,User can remove items on the cart page,Verify an item can be removed on the cart page,Positive,Medium,User is logged in as standard_user; one item in the cart,"1. Click the cart icon
+2. Click 'Remove' beside the item",Item: Sauce Labs Backpack,The item disappears from the cart list and the badge disappears.,As expected ,Passed
+TC_SwagLabs_025,Cart page,FR-4.5,User can start checkout,Verify the Checkout button opens the checkout form,Positive,High,User is logged in as standard_user; one item in the cart,"1. Click the cart icon
+2. Click 'Checkout'",N/A,User is taken to /checkout-step-one.html (Checkout: Your Information).,As expected ,Passed
+TC_SwagLabs_026,Cart page,FR-4.6,Checkout needs items in the cart,Verify checkout is not allowed with an empty cart,Negative,Medium,User is logged in as standard_user; cart is empty,"1. Click the cart icon
+2. Click 'Checkout'",N/A,"Checkout is blocked, or the user is warned that the cart is empty.","Checkout was not blocked, it still navigated to /checkout-step-one.html (Checkout: Your Information even with an empty cart.",Failed
+TC_SwagLabs_027,Checkout,FR-5.1,Customer information is required,Verify the checkout form accepts valid information,Positive,High,User is logged in as standard_user; 1 item in cart; on 'Checkout: Your Information',"1. Enter first name
+2. Enter last name
+3. Enter postal code
+4. Click Continue","First Name: John
+Last Name: Doe
+Postal Code: 2345",User proceeds to /checkout-step-two.html (Checkout: Overview).,As expected ,Passed
+TC_SwagLabs_028,Checkout,FR-5.1,Customer information is required,Verify an error is shown when First Name is empty,Negative,High,User is logged in as standard_user; 1 item in cart; on 'Checkout: Your Information',"1. Leave First Name empty
+2. Enter last name
+3. Enter postal code
+4. Click Continue","First Name: (empty)
+Last Name: Doe
+Postal Code: 2345",Error shown: 'Error: First Name is required'. User stays on the form.,As expected ,Passed
+TC_SwagLabs_029,Checkout,FR-5.1,Customer information is required,Verify an error is shown when Last Name is empty,Negative,High,User is logged in as standard_user; 1 item in cart; on 'Checkout: Your Information',"1. Enter first name
+2. Leave Last Name empty
+3. Enter postal code
+4. Click Continue","First Name: John
+Last Name: (empty)
+Postal Code: 2345",Error shown: 'Error: Last Name is required'. User stays on the form.,As expected ,Passed
+TC_SwagLabs_030,Checkout,FR-5.1,Customer information is required,Verify an error is shown when Postal Code is empty,Negative,High,User is logged in as standard_user; 1 item in cart; on 'Checkout: Your Information',"1. Enter first name
+2. Enter last name
+3. Leave Postal Code empty
+4. Click Continue","First Name: John
+Last Name: Doe
+Postal Code: (empty)",Error shown: 'Error: Postal Code is required'. User stays on the form.,As expected ,Passed
+TC_SwagLabs_031,Checkout,FR-5.1,Customer information is required,Verify an error is shown when all fields are empty,Negative,Medium,User is logged in as standard_user; 1 item in cart; on 'Checkout: Your Information',"1. Leave all three fields empty
+2. Click Continue","First Name: (empty)
+Last Name: (empty)
+Postal Code: (empty)",Error shown: 'Error: First Name is required' (first field is validated first).,As expected ,Passed
+TC_SwagLabs_032,Checkout,FR-5.1,Customer information is required,Verify the form accepts the minimum input length (1 character),Boundary,Medium,User is logged in as standard_user; 1 item in cart; on 'Checkout: Your Information',"1. Enter 1 character in each field
+2. Click Continue","First Name: A
+Last Name: B
+Postal Code: 1",User proceeds to /checkout-step-two.html.,As expected ,Passed
+TC_SwagLabs_033,Checkout,FR-5.1,Customer information is required,Verify the form handles special characters without breaking,Negative,Low,User is logged in as standard_user; 1 item in cart; on 'Checkout: Your Information',"1. Enter special characters in each field
+2. Click Continue","First Name: !@#$%
+Last Name: ^&*()
+Postal Code: @@@@@",No crash or error page. Either the input is accepted or a clear validation message is shown. Record exactly what happens.,The input is accepted and user is navigated to /checkout-step-two.html (Checkout: Overview).,Passed
+TC_SwagLabs_034,Checkout,FR-5.2,Order overview shows totals,"Verify item total, tax and total for a single item",Positive,High,User is logged in as standard_user; only Sauce Labs Backpack in the cart,"1. Go to checkout and enter valid information
+2. Click Continue
+3. Read the Item total, Tax and Total lines",Item: Sauce Labs Backpack ($29.99),Item total: $29.99 | Tax: $2.40 | Total: $32.39,As expected ,Passed
+TC_SwagLabs_035,Checkout,FR-5.2,Order overview shows totals,"Verify item total, tax and total for multiple items",Positive,High,User is logged in as standard_user; Backpack and Bike Light in the cart,"1. Go to checkout and enter valid information
+2. Click Continue
+3. Read the Item total, Tax and Total lines","Items: Sauce Labs Backpack ($29.99), Sauce Labs Bike Light ($9.99)",Item total: $39.98 | Tax: $3.20 | Total: $43.18,As expected ,Passed
+TC_SwagLabs_036,Checkout,FR-5.3,Order can be completed,Verify the order completes after clicking Finish,Positive,High,User is on 'Checkout: Overview' with 1 item,1. Click Finish,N/A,"Confirmation page (/checkout-complete.html) shows 'Thank you for your order!', the cart badge is cleared and two buttons one says “Back Home” the other says “Generate PDF”.",As expected ,Passed
+TC_SwagLabs_037,Checkout,FR-5.4,User can cancel checkout,Verify Cancel on the information page returns to the cart,Positive,Medium,User is logged in as standard_user; 1 item in cart; on 'Checkout: Your Information',1. Click Cancel,N/A,User returns to /cart.html and the item is still in the cart.,As expected ,Passed
+TC_SwagLabs_038,Checkout,FR-5.4,User can cancel checkout,Verify Cancel on the overview page leaves the cart intact,Positive,Medium,User is on 'Checkout: Overview' with 1 item,1. Click Cancel,N/A,User returns to the products page and the item is still in the cart (badge shows 1).,As expected ,Passed
+TC_SwagLabs_039,Checkout,FR-5.5,User can return after ordering,Verify 'Back Home' returns the user to the products page,Positive,Low,User is on the order confirmation page,1. Click 'Back Home',N/A,User returns to /inventory.html and the cart is empty.,As expected ,Passed
+TC_SwagLabs_040,Products,FR-6.1,Products can be sorted,Verify products sort by Name (A to Z),Positive,Medium,User is logged in as standard_user,"1. On the Products page open the sort dropdown (top right)
+2. Select 'Name (A to Z)'",Sort option: Name (A to Z),"Order: Sauce Labs Backpack, Sauce Labs Bike Light, Sauce Labs Bolt T-Shirt, Sauce Labs Fleece Jacket, Sauce Labs Onesie, Test.allTheThings() T-Shirt (Red).",As expected ,Passed
+TC_SwagLabs_041,Products,FR-6.1,Products can be sorted,Verify products sort by Name (Z to A),Positive,Medium,User is logged in as standard_user,"1. On the Products page open the sort dropdown
+2. Select 'Name (Z to A)'",Sort option: Name (Z to A),"Order is the reverse of A to Z: Test.allTheThings() T-Shirt (Red) first, Sauce Labs Backpack last.",As expected ,Passed
+TC_SwagLabs_042,Products,FR-6.1,Products can be sorted,Verify products sort by Price (low to high),Positive,Medium,User is logged in as standard_user,"1. On the Products page open the sort dropdown
+2. Select 'Price (low to high)'",Sort option: Price (low to high),"Prices ascend: $7.99, $9.99, $15.99, $15.99, $29.99, $49.99 (order of the two $15.99 items isn't specified).",As expected ,Passed
+TC_SwagLabs_043,Products,FR-6.1,Products can be sorted,Verify products sort by Price (high to low),Positive,Medium,User is logged in as standard_user,"1. On the Products page open the sort dropdown
+2. Select 'Price (high to low)'",Sort option: Price (high to low),"Prices descend: $49.99, $29.99, $15.99, $15.99, $9.99, $7.99.",As expected ,Passed
+TC_SwagLabs_044,Menu,FR-7.1,User can log out,Verify the user can log out,Positive,High,User is logged in as standard_user,"1. Click the menu icon (top left)
+2. Click Logout",N/A,User is returned to the login page (https://www.saucedemo.com/).,As expected ,Passed
+TC_SwagLabs_045,Menu,FR-7.1,User can log out,Verify the products page is not accessible with the Back button after logout,Negative,Medium,User is logged in as standard_user,"1. Log out
+2. Click the browser Back button",N/A,The products page is not shown; the user sees the login page (or the 'You can only access...' error).,As expected ,Passed
+TC_SwagLabs_046,Menu,FR-7.2,User can reset the app state,Verify Reset App State clears the cart,Positive,Low,User is logged in as standard_user; 2 items in the cart,"1. Click the menu icon
+2. Click 'Reset App State'
+3. Check the cart badge and the product buttons",N/A,The cart badge is cleared. Note whether the buttons return to 'Add to cart' without a refresh.,The cart badge is cleared but the “add to cart” button returns only after a refresh.,Passed
+TC_SwagLabs_047,Menu,FR-7.2,User can reset the app state,Verify product buttons return to “Add to cart” after Reset App State without a page refresh,Positive,Low,User is logged in as standard_user; 2 items in the cart,"1. Click the menu icon
+2. Click 'Reset App State'
+3. Look at the buttons on the Products page without refreshing",N/A,The buttons for the items that were in the cart return to “Add to cart”.,The buttons still read “Remove”. They only return to “Add to cart” after a refresh.,Failed
