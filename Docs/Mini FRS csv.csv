@@ -1,0 +1,28 @@
+Req ID,Module,Requirement,Linked Cases
+FR-1.1,Login,A user with valid credentials can log in and is taken to the products page.,1
+FR-1.2,Login,Login is rejected with an error message when the username or password is incorrect.,4
+FR-1.3,Login,Username and password are both required; an error is shown if either is empty.,3
+FR-1.4,Login,A locked-out user cannot log in and sees a lock-out message.,1
+FR-1.5,Login,Protected pages cannot be opened without being logged in.,1
+FR-2.1,Products,"The products page displays all products with image, name, description, price and an Add to cart button.",1
+FR-2.2,Product details,Clicking a product's image or title opens its details page.,2
+FR-2.3,Product details,The user can return to the products page from the details page.,1
+FR-3.1,Cart,The user can add an item to the cart from the products page.,1
+FR-3.2,Cart,The user can remove an item from the cart on the products page.,1
+FR-3.3,Cart,The user can add an item to the cart from the details page.,1
+FR-3.4,Cart,The user can remove an item from the cart on the details page.,1
+FR-3.5,Cart,Cart contents persist when the page is refreshed.,1
+FR-4.1,Cart page,"The cart icon shows a badge with the number of items, updating as items are added or removed.",2
+FR-4.2,Cart page,Clicking the cart icon opens the cart page listing the items in the cart.,1
+FR-4.3,Cart page,The user can return to the products page from the cart with 'Continue Shopping'.,1
+FR-4.4,Cart page,The user can remove items from the cart page.,1
+FR-4.5,Cart page,The user can start checkout from the cart page.,1
+FR-4.6,Cart page,Checkout is not allowed when the cart is empty.,1
+FR-5.1,Checkout,"First name, last name and postal code are required before the user can continue.",7
+FR-5.2,Checkout,"The overview page shows the item total, tax and order total.",2
+FR-5.3,Checkout,Clicking Finish completes the order and shows a confirmation.,1
+FR-5.4,Checkout,The user can cancel checkout without losing the cart.,2
+FR-5.5,Checkout,"After an order, the user can return to the products page.",1
+FR-6.1,Products,"Products can be sorted by name (A-Z, Z-A) and by price (low-high, high-low).",4
+FR-7.1,Menu,"The user can log out, which ends the session.",2
+FR-7.2,Menu,"The user can reset the app state, which clears the cart.",2
