@@ -1,6 +1,3 @@
-Bug Report - Swag Labs (SauceDemo),,,,,,,,,,,,,,
-"Yellow cells = fill in before publishing (date, environment, GitHub issue link).",,,,,,,,,,,,,,
-,,,,,,,,,,,,,,
 Bug ID,Title,Test Case,Date Reported,Reported By,Environment,Preconditions,Steps to Reproduce,Expected Result,Actual Result,Severity,Priority,Status,GitHub Issue,Evidence
 BUG-001,Checkout is allowed with an empty cart,TC_SwagLabs_026 (FR-4.6),28/10/2026,Hilary,"Chrome 154.0.8037.57 (x86_64)
 Ubuntu 24.04 LTS",User is logged in as standard_user; the cart is empty (no badge on the cart icon),"1. Open https://www.saucedemo.com and log in as standard_user
